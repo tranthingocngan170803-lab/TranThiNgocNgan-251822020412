@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>互动中文生词表（100词 完整版）</title>
+<style>
+  :root{
+    --bg1:#0f2027; --bg2:#203a43; --card:rgba(255,255,255,0.95);
+    --accent:#4f46e5; --muted:#6b7280; --pinyin-red:#d63447; --vn-green:#15803d;
+    --btn-bg:#111827; --card-radius:14px; --glass:rgba(255,255,255,0.07);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; font-family:Inter, "Helvetica Neue", Arial, "Microsoft YaHei", sans-serif;
+    color:#071022;
+    background: linear-gradient(135deg,var(--bg1) 0%, #1f3a4a 40%, #3a7ca5 100%);
+    min-height:100vh; -webkit-font-smoothing:antialiased; display:flex; align-items:flex-start; justify-content:center;
+    padding:36px 18px;
+  }
+  .container{width:100%; max-width:1200px; background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02)); border-radius:18px; padding:22px; box-shadow:0 10px 30px rgba(2,6,23,0.6); backdrop-filter: blur(6px);}
+  header{display:flex; gap:12px; align-items:center; justify-content:space-between; margin-bottom:16px; flex-wrap:wrap;}
+  .title{display:flex; gap:12px; align-items:center;}
+  .logo{width:56px;height:56px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),#06b6d4);color:white;font-weight:700;box-shadow:0 6px 18px rgba(79,70,229,0.18);}
+  h1{margin:0;font-size:20px;color:#fff;}
+  p.lead{margin:0;font-size:12px;color:rgba(255,255,255,0.85);}
+  .controls{display:flex;gap:12px;align-items:center;}
+  .search-wrap{display:flex;align-items:center;gap:8px;background:var(--card);padding:8px 12px;border-radius:999px;box-shadow:0 4px 10px rgba(2,6,23,0.25);min-width:260px;}
+  .search-wrap input{border:0;outline:0;background:transparent;font-size:14px;padding:6px 4px;width:320px;color:#071022;}
+  .kbd{font-size:12px;color:var(--muted);background:var(--glass);padding:4px 8px;border-radius:8px;display:inline-block;}
+  .stats{display:flex;gap:12px;align-items:center;color:rgba(255,255,255,0.9);font-size:14px;}
+  main{margin-top:10px;}
+  .grid{display:grid;grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));gap:14px;}
+  .card{background:linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.92));border-radius:var(--card-radius);padding:14px;box-shadow:0 6px 18px rgba(2,6,23,0.08);transition: transform 220ms, box-shadow 220ms;overflow:hidden;}
+  .card:hover{transform: translateY(-8px);box-shadow:0 18px 40px rgba(2,6,23,0.18);}
+  .row-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;}
+  .hanzi{font-size:24px;font-weight:800;color:#071022;line-height:1.05;}
+  .pinyin{color:var(--pinyin-red);font-weight:600;font-size:13px;margin-top:6px;}
+  .meaning{color:var(--vn-green);font-weight:600;font-size:13px;margin-top:6px;}
+  .controls-card{display:flex;gap:8px;align-items:center;}
+  .icon-btn{border:0;padding:8px;border-radius:10px;background:var(--btn-bg);color:white;cursor:pointer;display:inline-grid;place-items:center;width:40px;height:40px;transition: transform 140ms, background 140ms;box-shadow:0 6px 14px rgba(2,6,23,0.2);}
+  .icon-btn:active{transform:scale(.98)}
+  .icon-btn.playing{background:linear-gradient(90deg,#ef4444,#fb923c);box-shadow:0 8px 22px rgba(236,72,153,0.18);}
+  .example{margin-top:12px;font-size:13px;color:#0b1220;line-height:1.35;background:linear-gradient(90deg, rgba(6,7,10,0.02), rgba(6,7,10,0.01));padding:10px;border-radius:10px;}
+  .example .chn{display:block;font-weight:600;color:#071022;margin-bottom:6px;}
+  .example .pyn{color:var(--pinyin-red);font-size:12px;margin-bottom:4px;display:block;}
+  .example .vn{color:var(--vn-green);font-size:12px;display:block;}
+  footer{margin-top:18px;display:flex;justify-content:space-between;align-items:center;color:rgba(255,255,255,0.85);font-size:13px;flex-wrap:wrap;gap:8px;}
+  @media (max-width:560px){ .search-wrap input{width:120px;} .logo{width:48px;height:48px;} .container{padding:14px;} }
+  .muted{color:var(--muted);font-size:13px;} .highlight{color:var(--accent);font-weight:700;}
+</style>
+</head>
+<body>
+  <div class="container" role="application" aria-label="互动中文生词表">
+    <header>
+      <div class="title">
+        <div class="logo" aria-hidden="true">词</div>
+        <div>
+          <h1>互动中文生词表（100词 完整版）</h1>
+          <p class="lead">教材风格例句（标准、简洁）。发音（单词）与例句播放分开；搜索支持汉字/拼音/越南语/例句；Ctrl + / 聚焦搜索。</p>
+        </div>
+      </div>
+      <div class="controls">
+        <div class="search-wrap" title="搜索 (按中文/拼音/越南语/例句)">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M21 21l-4.35-4.35" stroke="#111827" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="11" cy="11" r="6" stroke="#111827" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <input id="search" aria-label="搜索词汇" placeholder="搜索汉字、拼音、越南语或例句 (按 Ctrl+/ 聚焦)" />
+          <span class="kbd">Ctrl + /</span>
+        </div>
+        <div class="stats" aria-live="polite">
+          <div class="muted">匹配到 <span id="count" class="highlight">100</span> 个词</div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="grid" id="grid" aria-live="polite" aria-label="词汇列表"></section>
+
+      <footer>
+        <div>共 <strong id="total">100</strong> 条生词</div>
+        <div class="muted">发音使用 Web Speech API（utterance.lang = 'zh-CN'），优先选择 zh-CN 声音。</div>
+      </footer>
+    </main>
+  </div>
+
+<script>
+/* 完整 100 条词（来自用户清单，含新增 3 词补齐为 100） */
+/* 每条：hanzi, pinyin, vn, exampleChn, examplePinyin, exampleVN */
+const items = [
+{hanzi:"时间",pinyin:"shíjiān",vn:"thời gian",exampleChn:"我没有时间休息。",examplePinyin:"Wǒ méiyǒu shíjiān xiūxi.",exampleVN:"Tôi không có thời gian nghỉ ngơi."},
+{hanzi:"事情",pinyin:"shìqing",vn:"sự việc, chuyện",exampleChn:"请把这件事情写下来。",examplePinyin:"Qǐng bǎ zhè jiàn shìqing xiě xiàlái.",exampleVN:"Hãy viết lại việc này."},
+{hanzi:"因为",pinyin:"yīnwèi",vn:"bởi vì",exampleChn:"因为下雨，比赛取消了。",examplePinyin:"Yīnwèi xiàyǔ, bǐsài qǔxiāo le.",exampleVN:"Bởi vì trời mưa, trận đấu đã bị hủy."},
+{hanzi:"所以",pinyin:"suǒyǐ",vn:"cho nên",exampleChn:"他生病了，所以没来上课。",examplePinyin:"Tā shēngbìng le, suǒyǐ méi lái shàngkè.",exampleVN:"Anh ấy bị ốm, nên không đến lớp."},
+{hanzi:"可以",pinyin:"kěyǐ",vn:"có thể",exampleChn:"你可以在这里等我。",examplePinyin:"Nǐ kěyǐ zài zhèlǐ děng wǒ.",exampleVN:"Bạn có thể đợi tôi ở đây."},
+{hanzi:"可能",pinyin:"kěnéng",vn:"có lẽ",exampleChn:"明天可能会下雨。",examplePinyin:"Míngtiān kěnéng huì xiàyǔ.",exampleVN:"Có lẽ ngày mai sẽ mưa."},
+{hanzi:"一起",pinyin:"yìqǐ",vn:"cùng nhau",exampleChn:"我们一起学习中文。",examplePinyin:"Wǒmen yìqǐ xuéxí Zhōngwén.",exampleVN:"Chúng ta cùng nhau học tiếng Trung."},
+{hanzi:"希望",pinyin:"xīwàng",vn:"hy vọng",exampleChn:"我希望你能参加。",examplePinyin:"Wǒ xīwàng nǐ néng cānjiā.",exampleVN:"Tôi hy vọng bạn có thể tham gia."},
+{hanzi:"觉得",pinyin:"juéde",vn:"cảm thấy",exampleChn:"我觉得这本书很有意思。",examplePinyin:"Wǒ juéde zhè běn shū hěn yǒu yìsi.",exampleVN:"Tôi cảm thấy cuốn sách này rất thú vị."},
+{hanzi:"准备",pinyin:"zhǔnbèi",vn:"chuẩn bị",exampleChn:"请准备好明天的材料。",examplePinyin:"Qǐng zhǔnbèi hǎo míngtiān de cáiliào.",exampleVN:"Vui lòng chuẩn bị tài liệu cho ngày mai."},
+{hanzi:"起床",pinyin:"qǐchuáng",vn:"dậy (ra khỏi giường)",exampleChn:"我每天七点起床。",examplePinyin:"Wǒ měitiān qī diǎn qǐchuáng.",exampleVN:"Tôi thức dậy lúc bảy giờ mỗi ngày."},
+{hanzi:"上班",pinyin:"shàngbān",vn:"đi làm",exampleChn:"她每天坐公交去上班。",examplePinyin:"Tā měitiān zuò gōngjiāo qù shàngbān.",exampleVN:"Cô ấy đi làm bằng xe buýt mỗi ngày."},
+{hanzi:"生病",pinyin:"shēngbìng",vn:"bị bệnh",exampleChn:"如果你生病，应去看医生。",examplePinyin:"Rúguǒ nǐ shēngbìng, yīng qù kàn yīshēng.",exampleVN:"Nếu bạn bị bệnh, nên đi khám bác sĩ."},
+{hanzi:"身体",pinyin:"shēntǐ",vn:"cơ thể",exampleChn:"运动对身体有好处。",examplePinyin:"Yùndòng duì shēntǐ yǒu hǎochù.",exampleVN:"Vận động có lợi cho cơ thể."},
+{hanzi:"房间",pinyin:"fángjiān",vn:"phòng",exampleChn:"请把房间收拾干净。",examplePinyin:"Qǐng bǎ fángjiān shōushi gānjìng.",exampleVN:"Hãy dọn dẹp phòng cho sạch sẽ."},
+{hanzi:"公司",pinyin:"gōngsī",vn:"công ty",exampleChn:"他在一家外资公司工作。",examplePinyin:"Tā zài yī jiā wàizī gōngsī gōngzuò.",exampleVN:"Anh ấy làm việc ở một công ty nước ngoài."},
+{hanzi:"教室",pinyin:"jiàoshì",vn:"phòng học",exampleChn:"教室里有很多学生。",examplePinyin:"Jiàoshì lǐ yǒu hěn duō xuésheng.",exampleVN:"Trong phòng học có nhiều học sinh."},
+{hanzi:"医院",pinyin:"yīyuàn",vn:"bệnh viện",exampleChn:"他因病住进了医院。",examplePinyin:"Tā yīn bìng zhù jìn le yīyuàn.",exampleVN:"Anh ấy nhập viện vì bệnh."},
+{hanzi:"公共汽车",pinyin:"gōnggòng qìchē",vn:"xe buýt",exampleChn:"我们坐公共汽车去市中心。",examplePinyin:"Wǒmen zuò gōnggòng qìchē qù shì zhōngxīn.",exampleVN:"Chúng tôi đi xe buýt tới trung tâm thành phố."},
+{hanzi:"火车站",pinyin:"huǒchēzhàn",vn:"ga tàu hỏa",exampleChn:"火车站离这里不远。",examplePinyin:"Huǒchēzhàn lí zhèlǐ bù yuǎn.",exampleVN:"Ga tàu không xa chỗ này."},
+{hanzi:"手表",pinyin:"shǒubiǎo",vn:"đồng hồ",exampleChn:"他送我一块手表。",examplePinyin:"Tā sòng wǒ yī kuài shǒubiǎo.",exampleVN:"Anh ấy tặng tôi một chiếc đồng hồ."},
+{hanzi:"手机",pinyin:"shǒujī",vn:"điện thoại di động",exampleChn:"请把手机静音。",examplePinyin:"Qǐng bǎ shǒujī jìngyīn.",exampleVN:"Hãy để điện thoại ở chế độ im lặng."},
+{hanzi:"颜色",pinyin:"yánsè",vn:"màu sắc",exampleChn:"这件衣服的颜色很好看。",examplePinyin:"Zhè jiàn yīfu de yánsè hěn hǎokàn.",exampleVN:"Màu sắc của áo này rất đẹp."},
+{hanzi:"西瓜",pinyin:"xīguā",vn:"dưa hấu",exampleChn:"夏天吃西瓜很凉快。",examplePinyin:"Xiàtiān chī xīguā hěn liángkuai.",exampleVN:"Mùa hè ăn dưa hấu rất mát."},
+{hanzi:"鸡蛋",pinyin:"jīdàn",vn:"trứng",exampleChn:"早餐我常吃一个鸡蛋。",examplePinyin:"Zǎocān wǒ cháng chī yī gè jīdàn.",exampleVN:"Tôi thường ăn một quả trứng cho bữa sáng."},
+{hanzi:"牛奶",pinyin:"niúnǎi",vn:"sữa bò",exampleChn:"孩子每天喝牛奶。",examplePinyin:"Háizi měitiān hē niúnǎi.",exampleVN:"Trẻ em uống sữa bò mỗi ngày."},
+{hanzi:"咖啡",pinyin:"kāfēi",vn:"cà phê",exampleChn:"他喜欢早上喝咖啡。",examplePinyin:"Tā xǐhuan zǎoshang hē kāfēi.",exampleVN:"Anh ấy thích uống cà phê buổi sáng."},
+{hanzi:"去年",pinyin:"qùnián",vn:"năm ngoái",exampleChn:"去年我们去过北京。",examplePinyin:"Qùnián wǒmen qù guo Běijīng.",exampleVN:"Năm ngoái chúng tôi đã đến Bắc Kinh."},
+{hanzi:"明年",pinyin:"míngnián",vn:"năm sau",exampleChn:"明年我打算出国学习。",examplePinyin:"Míngnián wǒ dǎsuàn chūguó xuéxí.",exampleVN:"Năm sau tôi dự định đi du học."},
+{hanzi:"旁边",pinyin:"pángbiān",vn:"bên cạnh",exampleChn:"公园的旁边有一家书店。",examplePinyin:"Gōngyuán de pángbiān yǒu yī jiā shūdiàn.",exampleVN:"Bên cạnh công viên có một hiệu sách。"},
+{hanzi:"外面",pinyin:"wàimiàn",vn:"bên ngoài",exampleChn:"外面很冷，请穿好衣服。",examplePinyin:"Wàimiàn hěn lěng, qǐng chuān hǎo yīfu.",exampleVN:"Bên ngoài rất lạnh, hãy mặc ấm。"},
+{hanzi:"里面",pinyin:"lǐmiàn",vn:"bên trong",exampleChn:"箱子里面有什么？",examplePinyin:"Xiāngzi lǐmiàn yǒu shénme?",exampleVN:"Trong va li có gì？"},
+{hanzi:"中间",pinyin:"zhōngjiān",vn:"ở giữa",exampleChn:"学校在两栋楼的中间。",examplePinyin:"Xuéxiào zài liǎng dòng lóu de zhōngjiān.",exampleVN:"Trường ở giữa hai tòa nhà。"},
+{hanzi:"旅游",pinyin:"lǚyóu",vn:"du lịch",exampleChn:"我们计划暑假去旅游。",examplePinyin:"Wǒmen jìhuà shǔjià qù lǚyóu.",exampleVN:"Chúng tôi dự định đi du lịch vào hè。"},
+{hanzi:"问题",pinyin:"wèntí",vn:"vấn đề, câu hỏi",exampleChn:"如果有问题，请举手。",examplePinyin:"Rúguǒ yǒu wèntí, qǐng jǔshǒu.",exampleVN:"Nếu có câu hỏi, xin giơ tay。"},
+{hanzi:"服务员",pinyin:"fúwùyuán",vn:"nhân viên phục vụ",exampleChn:"服务员，请买单。",examplePinyin:"Fúwùyuán, qǐng mǎidān.",exampleVN:"Anh phục vụ, làm ơn tính tiền。"},
+{hanzi:"明天",pinyin:"míngtiān",vn:"ngày mai",exampleChn:"明天我们有一场考试。",examplePinyin:"Míngtiān wǒmen yǒu yī chǎng kǎoshì.",exampleVN:"Ngày mai chúng ta có một kỳ thi。"},
+{hanzi:"昨天",pinyin:"zuótiān",vn:"hôm qua",exampleChn:"昨天的会议很重要。",examplePinyin:"Zuótiān de huìyì hěn zhòngyào.",exampleVN:"Cuộc họp hôm qua rất quan trọng。"},
+{hanzi:"今天",pinyin:"jīntiān",vn:"hôm nay",exampleChn:"今天的天气很好。",examplePinyin:"Jīntiān de tiānqì hěn hǎo.",exampleVN:"Thời tiết hôm nay rất tốt。"},
+{hanzi:"衣服",pinyin:"yīfu",vn:"quần áo",exampleChn:"我想买一件新衣服。",examplePinyin:"Wǒ xiǎng mǎi yī jiàn xīn yīfu.",exampleVN:"Tôi muốn mua một bộ quần áo mới。"},
+{hanzi:"桌子",pinyin:"zhuōzi",vn:"cái bàn",exampleChn:"请把书放在桌子上。",examplePinyin:"Qǐng bǎ shū fàng zài zhuōzi shàng.",exampleVN:"Hãy đặt sách lên bàn。"},
+{hanzi:"椅子",pinyin:"yǐzi",vn:"cái ghế",exampleChn:"教室里有很多椅子。",examplePinyin:"Jiàoshì lǐ yǒu hěn duō yǐzi.",exampleVN:"Trong phòng học có nhiều ghế。"},
+{hanzi:"机场",pinyin:"jīchǎng",vn:"sân bay",exampleChn:"请提前两个小时到机场。",examplePinyin:"Qǐng tíqián liǎng gè xiǎoshí dào jīchǎng.",exampleVN:"Hãy đến sân bay sớm hai tiếng。"},
+{hanzi:"宾馆",pinyin:"bīnguǎn",vn:"khách sạn",exampleChn:"我们在市中心订了一家宾馆。",examplePinyin:"Wǒmen zài shì zhōngxīn dìng le yī jiā bīnguǎn.",exampleVN:"Chúng tôi đặt một khách sạn ở trung tâm thành phố。"},
+{hanzi:"考试",pinyin:"kǎoshì",vn:"kỳ thi",exampleChn:"我明天有数学考试。",examplePinyin:"Wǒ míngtiān yǒu shùxué kǎoshì.",exampleVN:"Ngày mai tôi có kỳ thi toán。"},
+{hanzi:"火车",pinyin:"huǒchē",vn:"tàu hỏa",exampleChn:"我坐火车去上海。",examplePinyin:"Wǒ zuò huǒchē qù Shànghǎi.",exampleVN:"Tôi đi tàu đến Thượng Hải。"},
+{hanzi:"飞机",pinyin:"fēijī",vn:"máy bay",exampleChn:"飞机晚点了两个小时。",examplePinyin:"Fēijī wǎndiǎn le liǎng gè xiǎoshí.",exampleVN:"Máy bay bị trễ hai tiếng。"},
+{hanzi:"照片",pinyin:"zhàopiàn",vn:"bức ảnh",exampleChn:"请把照片发给我。",examplePinyin:"Qǐng bǎ zhàopiàn fā gěi wǒ.",exampleVN:"Hãy gửi cho tôi bức ảnh。"},
+{hanzi:"手忙脚乱",pinyin:"shǒu máng jiǎo luàn",vn:"cuống cuồng, luống cuống",exampleChn:"他遇到问题时很手忙脚乱。",examplePinyin:"Tā yù dào wèntí shí hěn shǒumáng jiǎoluàn.",exampleVN:"Khi gặp vấn đề anh ấy rất luống cuống。"},
+{hanzi:"影响",pinyin:"yǐngxiǎng",vn:"ảnh hưởng",exampleChn:"噪音会影响学习。",examplePinyin:"Zàoyīn huì yǐngxiǎng xuéxí.",exampleVN:"Tiếng ồn sẽ ảnh hưởng đến việc học。"},
+{hanzi:"决定",pinyin:"juédìng",vn:"quyết định",exampleChn:"我已经做出决定了。",examplePinyin:"Wǒ yǐjīng zuò chū juédìng le.",exampleVN:"Tôi đã đưa ra quyết định rồi。"},
+{hanzi:"努力",pinyin:"nǔlì",vn:"nỗ lực",exampleChn:"只要努力，就会有进步。",examplePinyin:"Zhǐyào nǔlì, jiù huì yǒu jìnbù.",exampleVN:"Chỉ cần nỗ lực, sẽ có tiến bộ。"},
+{hanzi:"成绩",pinyin:"chéngjì",vn:"thành tích",exampleChn:"他的考试成绩很好。",examplePinyin:"Tā de kǎoshì chéngjì hěn hǎo.",exampleVN:"Kết quả thi của anh ấy rất tốt。"},
+{hanzi:"重要",pinyin:"zhòngyào",vn:"quan trọng",exampleChn:"安全非常重要。",examplePinyin:"Ānquán fēicháng zhòngyào.",exampleVN:"An toàn rất quan trọng。"},
+{hanzi:"特别",pinyin:"tèbié",vn:"đặc biệt",exampleChn:"今天有一位特别的客人。",examplePinyin:"Jīntiān yǒu yī wèi tèbié de kèrén.",exampleVN:"Hôm nay có một vị khách đặc biệt。"},
+{hanzi:"认真",pinyin:"rènzhēn",vn:"nghiêm túc",exampleChn:"请认真完成作业。",examplePinyin:"Qǐng rènzhēn wánchéng zuòyè.",exampleVN:"Hãy hoàn thành bài tập nghiêm túc。"},
+{hanzi:"清楚",pinyin:"qīngchu",vn:"rõ ràng",exampleChn:"你说得不太清楚。",examplePinyin:"Nǐ shuō de bú tài qīngchu.",exampleVN:"Bạn nói chưa rõ lắm。"},
+{hanzi:"容易",pinyin:"róngyì",vn:"dễ dàng",exampleChn:"这道题很容易。",examplePinyin:"Zhè dào tí hěn róngyì.",exampleVN:"Câu hỏi này rất dễ。"},
+{hanzi:"一定",pinyin:"yídìng",vn:"nhất định",exampleChn:"你一定能做到。",examplePinyin:"Nǐ yídìng néng zuò dào.",exampleVN:"Bạn nhất định làm được。"},
+{hanzi:"一般",pinyin:"yìbān",vn:"thông thường",exampleChn:"一般来说，他很准时。",examplePinyin:"Yìbān lái shuō, tā hěn zhǔnshí.",exampleVN:"Nói chung, anh ấy rất đúng giờ。"},
+{hanzi:"一直",pinyin:"yìzhí",vn:"luôn luôn",exampleChn:"他一直在学习汉语。",examplePinyin:"Tā yìzhí zài xuéxí Hànyǔ.",exampleVN:"Anh ấy luôn học tiếng Hán。"},
+{hanzi:"最近",pinyin:"zuìjìn",vn:"gần đây",exampleChn:"你最近怎么样？",examplePinyin:"Nǐ zuìjìn zěnmeyàng?",exampleVN:"Gần đây bạn thế nào？"},
+{hanzi:"以前",pinyin:"yǐqián",vn:"trước đây",exampleChn:"我以前住在上海。",examplePinyin:"Wǒ yǐqián zhù zài Shànghǎi.",exampleVN:"Trước đây tôi sống ở Thượng Hải。"},
+{hanzi:"以后",pinyin:"yǐhòu",vn:"sau này",exampleChn:"以后请提前通知我。",examplePinyin:"Yǐhòu qǐng tíqián tōngzhī wǒ.",exampleVN:"Sau này hãy báo trước cho tôi。"},
+{hanzi:"习惯",pinyin:"xíguàn",vn:"thói quen",exampleChn:"早起是个好习惯。",examplePinyin:"Zǎoqǐ shì gè hǎo xíguàn.",exampleVN:"Thức dậy sớm là một thói quen tốt。"},
+{hanzi:"兴趣",pinyin:"xìngqù",vn:"hứng thú",exampleChn:"他对音乐很有兴趣。",examplePinyin:"Tā duì yīnyuè hěn yǒu xìngqù.",exampleVN:"Anh ấy rất có hứng thú với âm nhạc。"},
+{hanzi:"打算",pinyin:"dǎsuàn",vn:"dự định",exampleChn:"你打算什么时候出发？",examplePinyin:"Nǐ dǎsuàn shénme shíhou chūfā?",exampleVN:"Bạn dự định đi khi nào？"},
+{hanzi:"打扫",pinyin:"dǎsǎo",vn:"quét dọn",exampleChn:"周末我们打扫房间。",examplePinyin:"Zhōumò wǒmen dǎsǎo fángjiān.",exampleVN:"Cuối tuần chúng tôi quét dọn phòng。"},
+{hanzi:"解决",pinyin:"jiějué",vn:"giải quyết",exampleChn:"他提出了一个解决办法。",examplePinyin:"Tā tíchū le yī gè jiějué bànfǎ.",exampleVN:"Anh ấy đề xuất một cách giải quyết。"},
+{hanzi:"选择",pinyin:"xuǎnzé",vn:"lựa chọn",exampleChn:"你可以自由选择课程。",examplePinyin:"Nǐ kěyǐ zìyóu xuǎnzé kèchéng.",exampleVN:"Bạn có thể tự do lựa chọn khóa học。"},
+{hanzi:"锻炼",pinyin:"duànliàn",vn:"rèn luyện",exampleChn:"每天锻炼身体很重要。",examplePinyin:"Měitiān duànliàn shēntǐ hěn zhòngyào.",exampleVN:"Rèn luyện cơ thể hàng ngày rất quan trọng。"},
+{hanzi:"比赛",pinyin:"bǐsài",vn:"thi đấu",exampleChn:"这场比赛很激烈。",examplePinyin:"Zhè chǎng bǐsài hěn jīliè.",exampleVN:"Trận đấu này rất kịch tính。"},
+{hanzi:"照顾",pinyin:"zhàogu",vn:"chăm sóc",exampleChn:"她负责照顾孩子。",examplePinyin:"Tā fùzé zhàogu háizi.",exampleVN:"Cô ấy chịu trách nhiệm chăm sóc trẻ。"},
+{hanzi:"参加",pinyin:"cānjiā",vn:"tham gia",exampleChn:"欢迎大家参加会议。",examplePinyin:"Huānyíng dàjiā cānjiā huìyì.",exampleVN:"Chào mừng mọi người tham gia cuộc họp。"},
+{hanzi:"提高",pinyin:"tígāo",vn:"nâng cao",exampleChn:"他想提高自己的水平。",examplePinyin:"Tā xiǎng tígāo zìjǐ de shuǐpíng.",exampleVN:"Anh ấy muốn nâng cao trình độ của mình。"},
+{hanzi:"注意",pinyin:"zhùyì",vn:"chú ý",exampleChn:"上课请注意听讲。",examplePinyin:"Shàngkè qǐng zhùyì tīngjiǎng.",exampleVN:"Lên lớp hãy chú ý nghe giảng。"},
+{hanzi:"环境",pinyin:"huánjìng",vn:"môi trường",exampleChn:"保护环境是每个人的责任。",examplePinyin:"Bǎohù huánjìng shì měi gè rén de zérèn.",exampleVN:"Bảo vệ môi trường là trách nhiệm của mọi người。"},
+{hanzi:"节目",pinyin:"jiémù",vn:"tiết mục",exampleChn:"晚会有很多精彩的节目。",examplePinyin:"Wǎnhuì yǒu hěn duō jīngcǎi de jiémù.",exampleVN:"Buổi dạ hội có nhiều tiết mục hấp dẫn。"},
+{hanzi:"新闻",pinyin:"xīnwén",vn:"tin tức",exampleChn:"请关注今日新闻。",examplePinyin:"Qǐng guānzhù jīnrì xīnwén.",exampleVN:"Hãy chú ý tin tức hôm nay。"},
+{hanzi:"音乐",pinyin:"yīnyuè",vn:"âm nhạc",exampleChn:"他喜欢听古典音乐。",examplePinyin:"Tā xǐhuan tīng gǔdiǎn yīnyuè.",exampleVN:"Anh ấy thích nghe nhạc cổ điển。"},
+{hanzi:"爱好",pinyin:"àihào",vn:"sở thích",exampleChn:"她的爱好是画画。",examplePinyin:"Tā de àihào shì huàhuà.",exampleVN:"Sở thích của cô ấy là vẽ。"},
+{hanzi:"发烧",pinyin:"fāshāo",vn:"sốt",exampleChn:"孩子发烧要及时就医。",examplePinyin:"Háizi fāshāo yào jíshí jiùyī.",exampleVN:"Trẻ sốt cần cho đi khám kịp thời。"},
+{hanzi:"感冒",pinyin:"gǎnmào",vn:"cảm lạnh",exampleChn:"最近流行感冒，请注意保暖。",examplePinyin:"Zuìjìn liúxíng gǎnmào, qǐng zhùyì bǎonuǎn.",exampleVN:"Gần đây đang có dịch cảm lạnh, hãy giữ ấm。"},
+{hanzi:"检查",pinyin:"jiǎnchá",vn:"kiểm tra",exampleChn:"医生建议做全面检查。",examplePinyin:"Yīshēng jiànyì zuò quánmiàn jiǎnchá.",exampleVN:"Bác sĩ đề nghị làm kiểm tra toàn diện。"},
+{hanzi:"记得",pinyin:"jìde",vn:"nhớ",exampleChn:"请记得明天带护照。",examplePinyin:"Qǐng jìde míngtiān dài hùzhào.",exampleVN:"Hãy nhớ mang hộ chiếu vào ngày mai。"},
+{hanzi:"忘记",pinyin:"wàngjì",vn:"quên",exampleChn:"我忘记了他的名字。",examplePinyin:"Wǒ wàngjì le tā de míngzì.",exampleVN:"Tôi đã quên tên của anh ấy。"},
+{hanzi:"认为",pinyin:"rènwéi",vn:"cho rằng",exampleChn:"我认为这个办法可行。",examplePinyin:"Wǒ rènwéi zhè gè bànfǎ kěxíng.",exampleVN:"Tôi cho rằng phương pháp này khả thi。"},
+{hanzi:"同意",pinyin:"tóngyì",vn:"đồng ý",exampleChn:"大家都同意这个计划。",examplePinyin:"Dàjiā dōu tóngyì zhè gè jìhuà.",exampleVN:"Mọi người đều đồng ý với kế hoạch này。"},
+{hanzi:"聪明",pinyin:"cōngming",vn:"thông minh",exampleChn:"她很聪明，学习很快。",examplePinyin:"Tā hěn cōngming, xuéxí hěn kuài.",exampleVN:"Cô ấy thông minh, học rất nhanh。"},
+{hanzi:"可爱",pinyin:"kě’ài",vn:"dễ thương",exampleChn:"这只小猫很可爱。",examplePinyin:"Zhè zhī xiǎo māo hěn kě'ài.",exampleVN:"Chú mèo con này rất dễ thương。"},
+{hanzi:"干净",pinyin:"gānjìng",vn:"sạch sẽ",exampleChn:"请保持教室干净。",examplePinyin:"Qǐng bǎochí jiàoshì gānjìng.",exampleVN:"Hãy giữ phòng học sạch sẽ。"},
+{hanzi:"热情",pinyin:"rèqíng",vn:"nhiệt tình",exampleChn:"服务员对客人很热情。",examplePinyin:"Fúwùyuán duì kèrén hěn rèqíng.",exampleVN:"Nhân viên phục vụ rất nhiệt tình với khách。"},
+{hanzi:"安静",pinyin:"ānjìng",vn:"yên tĩnh",exampleChn:"图书馆里要保持安静。",examplePinyin:"Túshūguǎn lǐ yào bǎochí ānjìng.",exampleVN:"Trong thư viện phải giữ yên tĩnh。"},
+{hanzi:"方便",pinyin:"fāngbiàn",vn:"tiện lợi",exampleChn:"附近有一个很方便的超市。",examplePinyin:"Fùjìn yǒu yī gè hěn fāngbiàn de chāoshì.",exampleVN:"Gần đây có một siêu thị rất tiện。"},
+{hanzi:"突然",pinyin:"tūrán",vn:"đột nhiên",exampleChn:"天气突然变冷了。",examplePinyin:"Tiānqì tūrán biàn lěng le.",exampleVN:"Thời tiết đột nhiên trở lạnh。"},
+{hanzi:"刮风",pinyin:"guā fēng",vn:"nổi gió",exampleChn:"今天外面刮风，请注意防风。",examplePinyin:"Jīntiān wàimiàn guā fēng, qǐng zhùyì fáng fēng.",exampleVN:"Hôm nay ngoài trời có gió, hãy chú ý đề phòng gió。"},
+{hanzi:"关系",pinyin:"guānxì",vn:"quan hệ",exampleChn:"他和公司关系很好。",examplePinyin:"Tā hé gōngsī guānxì hěn hǎo.",exampleVN:"Anh ấy có quan hệ tốt với công ty。"},
+/* 新增补齐 3 词放在最后三项：文化、安全、成功 */
+{hanzi:"文化",pinyin:"wénhuà",vn:"văn hóa",exampleChn:"学习不同国家的文化很重要。",examplePinyin:"Xuéxí bùtóng guójiā de wénhuà hěn zhòngyào.",exampleVN:"Học văn hóa các quốc gia khác rất quan trọng。"},
+{hanzi:"安全",pinyin:"ānquán",vn:"an toàn",exampleChn:"请注意交通安全。",examplePinyin:"Qǐng zhùyì jiāotōng ānquán.",exampleVN:"Hãy chú ý an toàn giao thông。"},
+{hanzi:"成功",pinyin:"chénggōng",vn:"thành công",exampleChn:"努力工作可以取得成功。",examplePinyin:"Nǔlì gōngzuò kěyǐ qǔdé chénggōng.",exampleVN:"Làm việc chăm chỉ có thể đạt được thành công。"}
+];
+
+/* 验证数量为 100 */
+if(items.length !== 100){
+  console.warn("注意：当前词条数为 " + items.length + "，应为 100。");
+}
+
+/* 语音设置和工具函数 */
+let voices = [];
+function loadVoices(){ voices = speechSynthesis.getVoices() || []; }
+loadVoices();
+if(typeof speechSynthesis !== "undefined"){ speechSynthesis.onvoiceschanged = loadVoices; }
+function pickZhVoice(){
+  if(!voices || voices.length===0) return null;
+  const prefer = voices.find(v => v.lang && v.lang.toLowerCase().startsWith("zh-cn"));
+  if(prefer) return prefer;
+  const anyZh = voices.find(v => v.lang && v.lang.toLowerCase().startsWith("zh"));
+  return anyZh || voices[0];
+}
+function speak(text, onStart, onEnd){
+  if(!window.speechSynthesis){
+    alert("当前浏览器不支持 SpeechSynthesis（Web Speech API）。");
+    if(onEnd) onEnd();
+    return { stop:()=>{} };
+  }
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.lang = "zh-CN"; // 锁定为 zh-CN
+  const voice = pickZhVoice();
+  if(voice) utt.voice = voice;
+  utt.rate = 1;
+  utt.pitch = 1;
+  utt.onstart = ()=>{ if(onStart) onStart(); };
+  utt.onend = ()=>{ if(onEnd) onEnd(); };
+  utt.onerror = ()=>{ if(onEnd) onEnd(); };
+  speechSynthesis.speak(utt);
+  return { stop: ()=>{ try{ speechSynthesis.cancel(); }catch(e){} if(onEnd) onEnd(); } };
+}
+
+/* 渲染与交互 */
+const grid = document.getElementById("grid");
+const searchInput = document.getElementById("search");
+const countEl = document.getElementById("count");
+const totalEl = document.getElementById("total");
+totalEl.textContent = items.length;
+countEl.textContent = items.length;
+let playingController = null;
+
+function createCard(item){
+  const el = document.createElement("article");
+  el.className = "card";
+  el.setAttribute("data-id", item.hanzi);
+  el.innerHTML = `
+    <div class="row-top">
+      <div style="min-width:0;flex:1;">
+        <div class="hanzi">${item.hanzi}</div>
+        <div class="pinyin">${item.pinyin}</div>
+        <div class="meaning">${item.vn}</div>
+      </div>
+      <div class="controls-card">
+        <button class="icon-btn btn-pronounce" title="发音词汇" aria-label="发音 ${item.hanzi}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M11 5L6 9H2v6h4l5 4V5z" stroke="white" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/><path d="M19 9a4 4 0 010 6" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="icon-btn btn-sentence" title="播放例句" aria-label="播放例句 ${item.hanzi}">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 3v18l15-9L5 3z" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+    <div class="example" aria-label="例句">
+      <span class="chn">${item.exampleChn}</span>
+      <span class="pyn">${item.examplePinyin}</span>
+      <span class="vn">${item.exampleVN}</span>
+    </div>
+  `;
+
+  const btnPron = el.querySelector(".btn-pronounce");
+  const btnSent = el.querySelector(".btn-sentence");
+
+  btnPron.addEventListener("click", () => {
+    if(playingController){ playingController.stop(); playingController = null; document.querySelectorAll(".icon-btn.playing").forEach(b=>b.classList.remove("playing")); }
+    btnPron.classList.add("playing");
+    // 仅朗读词汇（汉字）
+    playingController = speak(item.hanzi, ()=>{}, () => { btnPron.classList.remove("playing"); playingController = null; });
+  });
+
+  btnSent.addEventListener("click", () => {
+    if(playingController){ playingController.stop(); playingController = null; document.querySelectorAll(".icon-btn.playing").forEach(b=>b.classList.remove("playing")); }
+    btnSent.classList.add("playing");
+    // 播放例句（中文句子）
+    playingController = speak(item.exampleChn, ()=>{}, () => { btnSent.classList.remove("playing"); playingController = null; });
+  });
+
+  return el;
+}
+
+function renderList(list){
+  grid.innerHTML = "";
+  const frag = document.createDocumentFragment();
+  list.forEach(it => frag.appendChild(createCard(it)));
+  grid.appendChild(frag);
+  countEl.textContent = list.length;
+}
+
+/* 搜索逻辑：支持汉字、拼音（带/不带声调）、越南语、例句 */
+function stripDiacritics(str){ if(!str) return ""; return str.normalize("NFD").replace(/[\u0300-\u036f]/g,""); }
+function matches(item, q){
+  if(!q) return true;
+  q = q.trim().toLowerCase();
+  if(!q) return true;
+  if(item.hanzi.includes(q)) return true;
+  if(item.pinyin.toLowerCase().includes(q)) return true;
+  if(stripDiacritics(item.pinyin).toLowerCase().includes(stripDiacritics(q))) return true;
+  if(item.vn.toLowerCase().includes(q)) return true;
+  if(item.exampleChn.toLowerCase().includes(q)) return true;
+  if(item.examplePinyin.toLowerCase().includes(q)) return true;
+  if(stripDiacritics(item.examplePinyin).toLowerCase().includes(stripDiacritics(q))) return true;
+  const combined = `${item.hanzi} ${item.pinyin} ${item.vn} ${item.exampleChn} ${item.examplePinyin}`.toLowerCase();
+  if(stripDiacritics(combined).includes(stripDiacritics(q))) return true;
+  return false;
+}
+
+function doSearch(){
+  const q = searchInput.value || "";
+  const filtered = items.filter(it => matches(it, q));
+  renderList(filtered);
+}
+
+/* 快捷键 Ctrl + / 或 Cmd + / 聚焦搜索 */
+window.addEventListener("keydown", (e) => {
+  if((e.ctrlKey || e.metaKey) && e.key === "/"){
+    e.preventDefault();
+    searchInput.focus();
+    searchInput.select();
+  }
+});
+searchInput.addEventListener("input", () => doSearch());
+
+/* 可见性变化或卸载时停止播放 */
+document.addEventListener("visibilitychange", () => { if(document.hidden && playingController){ try{ playingController.stop(); }catch(e){} } });
+window.addEventListener("beforeunload", () => { try{ speechSynthesis.cancel(); }catch(e){} });
+
+/* 初始渲染 */
+renderList(items);
+
+/* 额外提示：如果浏览器没有中文语音，请在系统/浏览器中安装中文语音包以改善朗读效果。 */
+</script>
+</body>
+</html>
