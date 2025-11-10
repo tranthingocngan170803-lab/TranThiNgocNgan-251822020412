@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>听力练习：家庭</title>
+<style>
+  body {
+    font-family: "Microsoft YaHei", sans-serif;
+    background-color: #f5f8fa;
+    color: #333;
+    line-height: 1.8;
+    padding: 20px;
+  }
+  h1 {
+    text-align: center;
+    color: #0073aa;
+  }
+  audio {
+    display: block;
+    margin: 20px auto;
+  }
+  .question {
+    background: #fff;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  .question h3 {
+    margin-top: 0;
+  }
+  .options label {
+    display: block;
+    padding: 5px;
+    cursor: pointer;
+  }
+  button {
+    background-color: #0073aa;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  button:hover {
+    background-color: #005f87;
+  }
+  #score {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 15px;
+  }
+  .correct-answers {
+    background: #e8f5e9;
+    border: 1px solid #c8e6c9;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 8px;
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<h1>听力练习：我的家庭</h1>
+<audio controls>
+  <source src="jiating.wav" type="audio/wav">
+  您的浏览器不支持音频播放。
+</audio>
+
+<form id="quizForm">
+  <!-- 题目 1 -->
+  <div class="question">
+    <h3>1. 小张家有几口人？</h3>
+    <div class="options">
+      <label><input type="radio" name="q1" value="A"> A. 三口人</label>
+      <label><input type="radio" name="q1" value="B"> B. 四口人</label>
+      <label><input type="radio" name="q1" value="C"> C. 五口人</label>
+      <label><input type="radio" name="q1" value="D"> D. 六口人</label>
+    </div>
+  </div>
+  <!-- 题目 2 -->
+  <div class="question">
+    <h3>2. 小张的爸爸是做什么工作的？</h3>
+    <div class="options">
+      <label><input type="radio" name="q2" value="A"> A. 医生</label>
+      <label><input type="radio" name="q2" value="B"> B. 护士</label>
+      <label><input type="radio" name="q2" value="C"> C. 老师</label>
+      <label><input type="radio" name="q2" value="D"> D. 警察</label>
+    </div>
+  </div>
+  <!-- 题目 3 -->
+  <div class="question">
+    <h3>3. 小张的妈妈在哪儿工作？</h3>
+    <div class="options">
+      <label><input type="radio" name="q3" value="A"> A. 学校</label>
+      <label><input type="radio" name="q3" value="B"> B. 医院</label>
+      <label><input type="radio" name="q3" value="C"> C. 公司</label>
+      <label><input type="radio" name="q3" value="D"> D. 超市</label>
+    </div>
+  </div>
+  <!-- 题目 4 -->
+  <div class="question">
+    <h3>4. 小张的妹妹几岁？</h3>
+    <div class="options">
+      <label><input type="radio" name="q4" value="A"> A. 八岁</label>
+      <label><input type="radio" name="q4" value="B"> B. 九岁</label>
+      <label><input type="radio" name="q4" value="C"> C. 十岁</label>
+      <label><input type="radio" name="q4" value="D"> D. 十一岁</label>
+    </div>
+  </div>
+  <!-- 题目 5 -->
+  <div class="question">
+    <h3>5. 他们周末常常做什么？</h3>
+    <div class="options">
+      <label><input type="radio" name="q5" value="A"> A. 去图书馆看书</label>
+      <label><input type="radio" name="q5" value="B"> B. 去公园散步，有时看电影</label>
+      <label><input type="radio" name="q5" value="C"> C. 去上班</label>
+      <label><input type="radio" name="q5" value="D"> D. 去超市买东西</label>
+    </div>
+  </div>
+  <!-- 题目 6 -->
+  <div class="question">
+    <h3>6. 他们喜欢吃什么？</h3>
+    <div class="options">
+      <label><input type="radio" name="q6" value="A"> A. 面条和米饭</label>
+      <label><input type="radio" name="q6" value="B"> B. 汉堡和薯条</label>
+      <label><input type="radio" name="q6" value="C"> C. 水果和牛奶</label>
+      <label><input type="radio" name="q6" value="D"> D. 披萨和蛋糕</label>
+    </div>
+  </div>
+  <!-- 题目 7 -->
+  <div class="question">
+    <h3>7. 小张家住在哪里？</h3>
+    <div class="options">
+      <label><input type="radio" name="q7" value="A"> A. 市中心</label>
+      <label><input type="radio" name="q7" value="B"> B. 城郊</label>
+      <label><input type="radio" name="q7" value="C"> C. 乡下</label>
+      <label><input type="radio" name="q7" value="D"> D. 海边</label>
+    </div>
+  </div>
+  <!-- 题目 8 -->
+  <div class="question">
+    <h3>8. 小王家有几口人？</h3>
+    <div class="options">
+      <label><input type="radio" name="q8" value="A"> A. 三口人</label>
+      <label><input type="radio" name="q8" value="B"> B. 四口人</label>
+      <label><input type="radio" name="q8" value="C"> C. 五口人</label>
+      <label><input type="radio" name="q8" value="D"> D. 六口人</label>
+    </div>
+  </div>
+  <!-- 题目 9 -->
+  <div class="question">
+    <h3>9. 小王的爷爷喜欢做什么？</h3>
+    <div class="options">
+      <label><input type="radio" name="q9" value="A"> A. 种花</label>
+      <label><input type="radio" name="q9" value="B"> B. 钓鱼</label>
+      <label><input type="radio" name="q9" value="C"> C. 看电视</label>
+      <label><input type="radio" name="q9" value="D"> D. 打篮球</label>
+    </div>
+  </div>
+  <!-- 题目 10 -->
+  <div class="question">
+    <h3>10. 他们周末有时候会做什么？</h3>
+    <div class="options">
+      <label><input type="radio" name="q10" value="A"> A. 去超市买东西</label>
+      <label><input type="radio" name="q10" value="B"> B. 去图书馆</label>
+      <label><input type="radio" name="q10" value="C"> C. 去上学</label>
+      <label><input type="radio" name="q10" value="D"> D. 去医院</label>
+    </div>
+  </div>
+
+  <div style="text-align:center;">
+    <button type="button" onclick="checkAnswers()">提交答案</button>
+    <button type="button" onclick="showCorrectAnswers()">显示正确答案</button>
+  </div>
+</form>
+
+<div id="score"></div>
+<div class="correct-answers" id="correctAnswers"></div>
+
+<script>
+  // 正确答案
+  const answers = {
+    q1: 'B',
+    q2: 'C',
+    q3: 'B',
+    q4: 'C',
+    q5: 'B',
+    q6: 'A',
+    q7: 'A',
+    q8: 'C',
+    q9: 'A',
+    q10:'A'
+  };
+
+  function checkAnswers() {
+    let score = 0;
+    let total = Object.keys(answers).length;
+    for (let q in answers) {
+      let selected = document.querySelector(`input[name="${q}"]:checked`);
+      if (selected && selected.value === answers[q]) {
+        score++;
+      }
+    }
+    document.getElementById('score').innerHTML = `您的得分：${score} / ${total}`;
+  }
+
+  function showCorrectAnswers() {
+    let html = "<h3>正确答案：</h3><ol>";
+    for (let q in answers) {
+      html += `<li>${q.toUpperCase()}：${answers[q]}</li>`;
+    }
+    html += "</ol>";
+    document.getElementById('correctAnswers').innerHTML = html;
+    document.getElementById('correctAnswers').style.display = 'block';
+  }
+</script>
+
+</body>
+</html>
